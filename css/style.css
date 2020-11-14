@@ -1,0 +1,340 @@
+/*
+This is the primary style sheet for doortothe.net
+*/
+
+/* CSS Global Level Styles and Variables */
+:root {
+  --hex-height: 30vh;
+  --hex-height-x2: calc(var(--hex-height) * 2);
+  --hex-height-x5: calc(var(--hex-height) * 5);
+  --hex-shift: calc(var(--hex-height) * -0.5);
+  --hex-width: calc(var(--hex-height) * 0.57735);
+  --hex-width-x2: calc(var(--hex-height-x2) * 0.57735);
+  --hex-width-x5: calc(var(--hex-height-x5) * 0.57735);
+  --hex-vertical-gap: 1rem;
+  --hex-horizontal-gap: calc(var(--hex-vertical-gap) * 0.866);
+  --primary-color: #333;
+  --secondary-color: #fff;
+  --charcoal: hsla(214, 21%, 31%, 1);
+  --heliotrope-gray: hsla(277, 10%, 66%, 1);
+  --dark-orange: hsla(33, 94%, 49%, 1);
+  --tea-green: hsla(94, 61%, 84%, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--charcoal);
+  font-family: 'Goldman', cursive;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* CSS Element Level Styles */
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: calc(var(--hex-height) * -0.5);
+  width: 100%;
+  height: calc(var(--hex-height) * 0.5);
+  z-index: 1;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: calc(var(--hex-height) * -0.75);
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+  max-height: 90vh;
+}
+
+li {
+  margin: 0.4rem;
+  padding: 0.2rem;
+  font-size: 1.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--charcoal);
+  font-size: inherit;
+  text-transform: uppercase;
+}
+
+a:hover {
+  color: var(--primary-color);
+  transition: color 0.5s;
+}
+
+/* CSS Class Level Styles */
+.outline {
+  border: 3px solid black;
+}
+
+.title {
+  margin: calc(var(--hex-height) * 0.05);
+  padding: 0.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: calc(var(--hex-height) * 0.12);
+}
+
+.top-menu h2 {
+  position: absolute;
+  bottom: 0px;
+}
+
+.nav-arrows {
+  position: absolute;
+  margin-top: calc(var(--hex-height) * 0.05);
+  top: 0px;
+}
+
+.main-nav {
+  display: none;
+}
+
+.links {
+  display: none;
+}
+
+.bg-1 {
+  background: var(--dark-orange);
+}
+
+.youtube {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Hexagon and Grid */
+
+.hex-grid {
+  margin-top: calc(var(--hex-height) * 0.15);
+  display: grid;
+  justify-items: center;
+  position: relative;
+  top: calc(var(--hex-height) * 0.5);
+  grid-template-columns: repeat(5, calc(var(--hex-width) * 1.5));
+  grid-gap: var(--hex-vertical-gap) var(--hex-horizontal-gap);
+}
+
+.hex-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: var(--hex-width);
+  height: var(--hex-height);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s;
+}
+
+.hexagon {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: var(--hex-width);
+  height: var(--hex-height);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s;
+  /* name | duration | timing | delay | iteration | direction | fill-mode
+  animation: appear 1s linear 0.5s 1 normal forwards running; */
+}
+
+header .hexagon:hover {
+  transform: none;
+  color: var(--charcoal);
+}
+
+footer .hexagon:hover {
+  transform: none;
+}
+
+.hexagon::before,
+.hexagon::after {
+  content: '';
+  position: absolute;
+  background: var(--dark-orange);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.hexagon::before {
+  transform: rotate(60deg);
+}
+
+.hexagon::after {
+  transform: rotate(-60deg);
+}
+
+.shift-up {
+  top: calc(var(--hex-shift) + (var(--hex-vertical-gap) * -0.5));
+}
+
+/* Hex Menu Toggle */
+.toggle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+}
+
+.close-btn {
+  /* visibility: hidden; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 1;
+  opacity: 0;
+}
+
+.toggle:hover ~ div {
+  transform: scale(1.1);
+}
+
+.toggle:checked {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+}
+
+.toggle:checked + span {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  z-index: 9;
+  opacity: 1;
+}
+
+.toggle:checked:hover ~ div {
+  transform: scale(0.99);
+}
+
+.toggle:checked ~ div {
+  /* name | duration | timing | delay | iteration | direction | fill-mode */
+  /* animation: open 1s linear 0.5s 1 normal forwards running; */
+  z-index: 3;
+  animation-name: open-hex;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes open-hex {
+  0% {
+    position: fixed;
+    width: var(--hex-width-x2);
+    height: var(--hex-height-x2);
+    top: calc(-10vh - calc(var(--hex-height-x2) * 0.5));
+    left: calc(50vw - calc(var(--hex-width-x2) * 0.5));
+  }
+  50% {
+    position: fixed;
+    width: var(--hex-width-x2);
+    height: var(--hex-height-x2);
+    top: calc(50vh - calc(var(--hex-height-x2) * 0.5));
+    left: calc(50vw - calc(var(--hex-width-x2) * 0.5));
+  }
+  100% {
+    position: fixed;
+    width: var(--hex-width-x5);
+    height: var(--hex-height-x5);
+    top: calc(50vh - calc(var(--hex-height-x5) * 0.5));
+    left: calc(50vw - calc(var(--hex-width-x5) * 0.5));
+  }
+}
+
+.toggle:checked ~ div > h2 {
+  display: none;
+}
+
+.toggle:checked ~ div > .main-nav,
+.toggle:checked ~ div > .links {
+  display: inline-block;
+  visibility: collapse;
+  animation-name: show-links;
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes show-links {
+  0% {
+    transform: scaleY(0);
+    margin-top: 0rem;
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    margin-top: 2rem;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.toggle:checked ~ div > .fas {
+  font-size: 5rem;
+  transition: all 1s;
+}
+
+/* CSS ID Level Styles */
+#otaku {
+  grid-area: 3 / 2;
+}
+
+#tech {
+  grid-area: 3 / 4;
+}
+
+#widgets {
+  margin-top: 15vh;
+  margin-bottom: 15vh;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-gap: 2rem;
+  align-items: center;
+  justify-items: center;
+  width: 99%;
+  height: 75vh;
+}
