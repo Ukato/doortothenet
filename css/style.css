@@ -11,14 +11,14 @@ This is the primary style sheet for doortothe.net
   --hex-width: calc(var(--hex-height) * 0.57735);
   --hex-width-x2: calc(var(--hex-height-x2) * 0.57735);
   --hex-width-x5: calc(var(--hex-height-x5) * 0.57735);
-  --hex-vertical-gap: 1rem;
+  --hex-vertical-gap: 0.5rem;
   --hex-horizontal-gap: calc(var(--hex-vertical-gap) * 0.866);
-  --primary-color: #333;
-  --secondary-color: #fff;
+  /* --primary-color: #333;
+  --secondary-color: #fff; */
   --charcoal: hsla(214, 21%, 31%, 1);
   --heliotrope-gray: hsla(277, 10%, 66%, 1);
   --dark-orange: hsla(33, 94%, 49%, 1);
-  --tea-green: hsla(94, 61%, 84%, 1);
+  /* --tea-green: hsla(94, 61%, 84%, 1); */
 }
 
 * {
@@ -253,12 +253,13 @@ footer .hexagon:hover {
 }
 
 .toggle:checked ~ div {
-  /* name | duration | timing | delay | iteration | direction | fill-mode */
+  /* name | duration | timing | delay | iteration | direction | fill-mode | play-state */
   /* animation: open 1s linear 0.5s 1 normal forwards running; */
   z-index: 3;
-  animation-name: open-hex;
+  animation: open-hex 2s ease-in-out 0s 1 normal forwards;
+  /* animation-name: open-hex;
   animation-duration: 2s;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards; */
 }
 
 @keyframes open-hex {
