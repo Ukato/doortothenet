@@ -18,7 +18,7 @@ This is the primary style sheet for doortothe.net
   --charcoal: hsla(214, 21%, 31%, 1);
   --heliotrope-gray: hsla(277, 10%, 66%, 1);
   --dark-orange: hsla(33, 94%, 49%, 1);
-  /* --tea-green: hsla(94, 61%, 84%, 1); */
+  --tea-green: hsla(94, 61%, 84%, 1);
 }
 
 * {
@@ -46,6 +46,12 @@ header {
   z-index: 1;
 }
 
+header .hexagon:hover {
+  transform: none;
+  color: var(--charcoal);
+  cursor: pointer;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -63,9 +69,22 @@ footer {
   width: 100%;
 }
 
+footer .hexagon:hover {
+  transform: none;
+}
+
 ul {
   list-style: none;
-  max-height: 90vh;
+  max-height: 75vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  /* IE and Edge Support */
+  -ms-overflow-style: none;
+}
+
+/* Chrome, Safari, and Opera support to hide scrollbar */
+ul::-webkit-scrollbar {
+  display: none;
 }
 
 li {
@@ -75,6 +94,7 @@ li {
 }
 
 a {
+  padding: 0.4rem 0.2rem;
   text-decoration: none;
   color: var(--charcoal);
   font-size: inherit;
@@ -82,15 +102,11 @@ a {
 }
 
 a:hover {
-  color: var(--primary-color);
-  transition: color 0.5s;
+  color: var(--tea-green);
+  transition: color 0.25s;
 }
 
 /* CSS Class Level Styles */
-.outline {
-  border: 3px solid black;
-}
-
 .title {
   margin: calc(var(--hex-height) * 0.05);
   padding: 0.5rem;
@@ -116,16 +132,6 @@ a:hover {
 
 .links {
   display: none;
-}
-
-.bg-1 {
-  background: var(--dark-orange);
-}
-
-.youtube {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 /* Hexagon and Grid */
@@ -156,23 +162,13 @@ a:hover {
   display: flex;
   flex-direction: column;
   position: relative;
+  background: var(--dark-orange);
   width: var(--hex-width);
   height: var(--hex-height);
   text-align: center;
   justify-content: center;
   align-items: center;
   transition: transform 0.5s;
-  /* name | duration | timing | delay | iteration | direction | fill-mode
-  animation: appear 1s linear 0.5s 1 normal forwards running; */
-}
-
-header .hexagon:hover {
-  transform: none;
-  color: var(--charcoal);
-}
-
-footer .hexagon:hover {
-  transform: none;
 }
 
 .hexagon::before,
@@ -184,15 +180,22 @@ footer .hexagon:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
 }
 
 .hexagon::before {
-  transform: rotate(60deg);
+  transform: rotate(-60deg);
 }
 
 .hexagon::after {
-  transform: rotate(-60deg);
+  transform: rotate(60deg);
+}
+
+.hexagon::before:hover {
+  background: red;
+}
+
+.hexagon > * {
+  z-index: 1;
 }
 
 .shift-up {
@@ -234,7 +237,7 @@ footer .hexagon:hover {
   margin: 0;
   width: 50px;
   height: 50px;
-  z-index: 10;
+  z-index: 5;
 }
 
 .toggle:checked + span {
@@ -244,7 +247,7 @@ footer .hexagon:hover {
   margin: 0;
   width: 50px;
   height: 50px;
-  z-index: 9;
+  z-index: 4;
   opacity: 1;
 }
 
@@ -253,32 +256,26 @@ footer .hexagon:hover {
 }
 
 .toggle:checked ~ div {
+  position: fixed;
   /* name | duration | timing | delay | iteration | direction | fill-mode | play-state */
-  /* animation: open 1s linear 0.5s 1 normal forwards running; */
-  z-index: 3;
   animation: open-hex 2s ease-in-out 0s 1 normal forwards;
-  /* animation-name: open-hex;
-  animation-duration: 2s;
-  animation-fill-mode: forwards; */
+  z-index: 3;
 }
 
 @keyframes open-hex {
   0% {
-    position: fixed;
     width: var(--hex-width-x2);
     height: var(--hex-height-x2);
     top: calc(-10vh - calc(var(--hex-height-x2) * 0.5));
     left: calc(50vw - calc(var(--hex-width-x2) * 0.5));
   }
   50% {
-    position: fixed;
     width: var(--hex-width-x2);
     height: var(--hex-height-x2);
     top: calc(50vh - calc(var(--hex-height-x2) * 0.5));
     left: calc(50vw - calc(var(--hex-width-x2) * 0.5));
   }
   100% {
-    position: fixed;
     width: var(--hex-width-x5);
     height: var(--hex-height-x5);
     top: calc(50vh - calc(var(--hex-height-x5) * 0.5));
@@ -293,24 +290,19 @@ footer .hexagon:hover {
 .toggle:checked ~ div > .main-nav,
 .toggle:checked ~ div > .links {
   display: inline-block;
-  visibility: collapse;
-  animation-name: show-links;
-  animation-duration: 1s;
-  animation-delay: 2s;
-  animation-fill-mode: forwards;
+  opacity: 0;
+  height: 0%;
+  animation: show-links 1s ease-out 2s 1 normal forwards;
 }
 
 @keyframes show-links {
   0% {
-    transform: scaleY(0);
     margin-top: 0rem;
-    opacity: 0;
   }
   100% {
-    transform: scaleY(1);
     margin-top: 2rem;
+    height: 40%;
     opacity: 1;
-    visibility: visible;
   }
 }
 
@@ -326,16 +318,4 @@ footer .hexagon:hover {
 
 #tech {
   grid-area: 3 / 4;
-}
-
-#widgets {
-  margin-top: 15vh;
-  margin-bottom: 15vh;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-gap: 2rem;
-  align-items: center;
-  justify-items: center;
-  width: 99%;
-  height: 75vh;
 }
