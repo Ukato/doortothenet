@@ -13,8 +13,7 @@ This is the primary style sheet for doortothe.net
   --hex-width-x5: calc(var(--hex-height-x5) * 0.57735);
   --hex-vertical-gap: 0.5rem;
   --hex-horizontal-gap: calc(var(--hex-vertical-gap) * 0.866);
-  /* --primary-color: #333;
-  --secondary-color: #fff; */
+  --shift-up: calc(var(--hex-shift) + (var(--hex-vertical-gap) * -0.5));
   --charcoal: hsla(214, 21%, 31%, 1);
   --heliotrope-gray: hsla(277, 10%, 66%, 1);
   --dark-orange: hsla(33, 94%, 49%, 1);
@@ -28,9 +27,10 @@ This is the primary style sheet for doortothe.net
 }
 
 body {
-  background: var(--charcoal);
+  background-color: var(--charcoal);
   font-family: 'Goldman', cursive;
   color: #fff;
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -39,17 +39,10 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
+  position: relative;
   top: calc(var(--hex-height) * -0.5);
   width: 100%;
   height: calc(var(--hex-height) * 0.5);
-  z-index: 1;
-}
-
-header .hexagon:hover {
-  transform: none;
-  color: var(--charcoal);
-  cursor: pointer;
 }
 
 main {
@@ -57,6 +50,8 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+  top: calc(var(--hex-width) * -1);
   width: 100%;
 }
 
@@ -64,13 +59,15 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  bottom: calc(var(--hex-height) * -0.75);
+  position: relative;
+  bottom: calc(var(--hex-height) * 0.8);
   width: 100%;
+  height: calc(var(--hex-height) * 0.5);
 }
 
-footer .hexagon:hover {
-  transform: none;
+footer .about-hex {
+  position: relative;
+  top: calc(var(--hex-height) * 0.40);
 }
 
 ul {
@@ -102,14 +99,19 @@ a {
 }
 
 a:hover {
-  color: var(--tea-green);
+  color: #fff;
   transition: color 0.25s;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 2rem;
 }
 
 /* CSS Class Level Styles */
 .title {
-  margin: calc(var(--hex-height) * 0.05);
-  padding: 0.5rem;
+  margin: calc(var(--hex-height) * 0.04);
+  padding: 0.4rem;
   font-weight: bold;
   text-transform: uppercase;
   font-size: calc(var(--hex-height) * 0.12);
@@ -120,7 +122,7 @@ a:hover {
   bottom: 0px;
 }
 
-.nav-arrows {
+.about-hex > div > span {
   position: absolute;
   margin-top: calc(var(--hex-height) * 0.05);
   top: 0px;
@@ -134,6 +136,10 @@ a:hover {
   display: none;
 }
 
+.about > p {
+  display: none;
+}
+
 /* Hexagon and Grid */
 
 .hex-grid {
@@ -144,6 +150,9 @@ a:hover {
   top: calc(var(--hex-height) * 0.5);
   grid-template-columns: repeat(5, calc(var(--hex-width) * 1.5));
   grid-gap: var(--hex-vertical-gap) var(--hex-horizontal-gap);
+  grid-template-areas: "academia   art   cooking    business   finance"
+                       "netainment music videogames science    vr-ar"
+                       "blank1     otaku blank2     technology blank3 ";
 }
 
 .hex-container {
@@ -198,10 +207,6 @@ a:hover {
   z-index: 1;
 }
 
-.shift-up {
-  top: calc(var(--hex-shift) + (var(--hex-vertical-gap) * -0.5));
-}
-
 /* Hex Menu Toggle */
 .toggle {
   position: absolute;
@@ -215,7 +220,6 @@ a:hover {
 }
 
 .close-btn {
-  /* visibility: hidden; */
   position: absolute;
   top: 0;
   left: 0;
@@ -227,10 +231,11 @@ a:hover {
 }
 
 .toggle:hover ~ div {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
-.toggle:checked {
+.toggle:checked,
+.toggle:checked + span {
   position: fixed;
   top: 50px;
   left: 50px;
@@ -241,24 +246,22 @@ a:hover {
 }
 
 .toggle:checked + span {
-  position: fixed;
-  top: 50px;
-  left: 50px;
-  margin: 0;
-  width: 50px;
-  height: 50px;
   z-index: 4;
+  opacity: 0.75;
+}
+
+.toggle:checked:hover + span {
   opacity: 1;
 }
 
 .toggle:checked:hover ~ div {
-  transform: scale(0.99);
+  transform: scale(0.98);
 }
 
 .toggle:checked ~ div {
   position: fixed;
   /* name | duration | timing | delay | iteration | direction | fill-mode | play-state */
-  animation: open-hex 2s ease-in-out 0s 1 normal forwards;
+  animation: open-hex 1.5s ease-in-out 0s 1 normal forwards;
   z-index: 3;
 }
 
@@ -287,12 +290,23 @@ a:hover {
   display: none;
 }
 
+.top-menu .toggle:checked ~ div > h2 {
+  display: inline-block;
+  position: relative;
+  font-size: 2.5rem;
+}
+
+.about-hex .toggle:checked ~ div > span {
+  position: relative;
+}
+
 .toggle:checked ~ div > .main-nav,
-.toggle:checked ~ div > .links {
+.toggle:checked ~ div > .links,
+.toggle:checked ~ div > p {
   display: inline-block;
   opacity: 0;
   height: 0%;
-  animation: show-links 1s ease-out 2s 1 normal forwards;
+  animation: show-links 1s ease-out 1.5s 1 normal forwards;
 }
 
 @keyframes show-links {
@@ -301,7 +315,7 @@ a:hover {
   }
   100% {
     margin-top: 2rem;
-    height: 40%;
+    height: calc(var(--hex-height) * 2);
     opacity: 1;
   }
 }
@@ -312,10 +326,182 @@ a:hover {
 }
 
 /* CSS ID Level Styles */
+#academia {
+  grid-area: academia;
+}
+
+#art {
+  grid-area: art;
+  top: var(--shift-up);
+}
+
+#cooking {
+  grid-area: cooking;
+}
+
+#business {
+  grid-area: business;
+  top: var(--shift-up);
+}
+
+#finance {
+  grid-area: finance;
+}
+
+#netainment {
+  grid-area: netainment;
+}
+
+#music {
+  grid-area: music;
+  top: var(--shift-up);
+}
+
+#videogames {
+  grid-area: videogames;
+}
+
+#science {
+  grid-area: science;
+  top: var(--shift-up);
+}
+
+#vr-ar {
+  grid-area: vr-ar;
+}
+
 #otaku {
-  grid-area: 3 / 2;
+  grid-area: otaku;
+  top: var(--shift-up);
 }
 
 #tech {
-  grid-area: 3 / 4;
+  grid-area: technology;
+  top: var(--shift-up);
+}
+
+/* Styles for smaller screens */
+@media screen and (max-width: 1199px) {
+  :root {
+    --hex-height: 30vw;
+  }
+
+  body {
+    overflow: auto;
+  }
+
+  header {
+    top: 0;
+    height: calc(var(--hex-height) * 0.25);
+  }
+
+  main {
+    top: calc(var(--hex-width) * -0.50);
+  }
+
+  footer {
+    justify-content: flex-end;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(var(--hex-height) * 0.25);
+    overflow: hidden;
+  }
+
+  footer .about-hex {
+    right: calc(var(--hex-width) * 0.85);
+  }
+
+  .top-menu {
+    position: relative;
+    bottom: calc(var(--hex-height) * 0.40);
+  }
+
+  .top-menu h2 {
+    margin: 0.2rem;
+  }
+
+  .hex-grid {
+    grid-template-columns: repeat(3, calc(var(--hex-width) * 1.5));
+    grid-template-areas: "art      cooking    business"
+                         "music    videogames science"
+                         "otaku    netainment technology"
+                         "academia vr-ar      finance";
+  }
+
+  .toggle:checked,
+  .toggle:checked + span {
+  top: 25px;
+  left: 25px;
+  width: 25px;
+  height: 25px;
+  font-size: 2rem;
+  } 
+  
+  #academia {
+    top: var(--shift-up);
+  }
+
+  #finance {
+    top: var(--shift-up);
+  }
+}
+
+@media screen and (max-width: 599px) {
+  :root {
+    --hex-height: 45vw;
+  }
+
+  header {
+    justify-content: flex-start;
+    width: 100%;
+    /* z-index: 2; */
+  }
+
+  main {
+    top: calc(var(--hex-width) * -0.20);
+  }
+
+  footer {
+    top: 50px;
+  }
+
+  footer .about-hex {
+    right: calc(var(--hex-width) * 0.65);
+  }
+
+  ul, p {
+    max-width: 90vw;
+  }
+
+  .top-menu {
+    left: calc(var(--hex-width) * 0.65);
+  }
+
+  .top-menu h2 {
+    padding: 0.2rem;
+  }
+
+  .hex-grid {
+    margin-top: 0;
+    grid-template-columns: repeat(2, calc(var(--hex-width) * 1.5));
+    grid-template-areas: "cooking    business"
+                         "videogames science"
+                         "netainment technology"
+                         "vr-ar      finance"
+                         "art        music"
+                         "otaku      academia";
+  }
+
+  #art {
+    top: 0;
+  }
+
+  #otaku {
+    top: 0;
+  }
+
+  .fa-2x {
+    font-size: 1.8rem;
+  }
 }

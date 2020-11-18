@@ -20,9 +20,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <meta name="description" content="A personal portal to the net." />
+  <meta name="description" content="This site is an early concept of rethinking how one saves links and ingests information from the net." />
   <meta name="keywords" content="bookmarks links personal landing page" />
-  <meta name="robots" content="NOINDEX, NOFOLLOW" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap" rel="stylesheet" />
@@ -33,29 +32,33 @@
 </head>
 <body>
   <header>
-    <div class="hexagon top-menu">
-      <h2 class="title">
-        Menu
-      </h2>
-      <nav class="main-nav">
-        <ul>
-          <li>
-            <a href="#">START</a>
-          </li>
-          <li>
-            <a href="#">MEDIA</a>
-          </li>
-          <li>
-            <a href="#">SOMETHING</a>
-          </li>
-          <li>
-            <a href="#">ELSE</a>
-          </li>
-          <li>
-            <a href="#">END</a>
-          </li>
-        </ul>
-      </nav>
+    <div class="hex-container top-menu">
+      <input type="checkbox" class="toggle" />
+      <span class="close-btn fas fa-times-circle fa-3x"></span>
+      <div class="hexagon">
+        <h2 class="title">
+          Menu
+        </h2>
+        <nav class="main-nav">
+          <ul>
+            <li>
+              <a href="/index.html">HOME</a>
+            </li>
+            <li>
+              <a href="#">MEDIA</a>
+            </li>
+            <li>
+              <a href="#">SOMETHING</a>
+            </li>
+            <li>
+              <a href="#">ELSE</a>
+            </li>
+            <li>
+              <a href="#">END</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
   <main>
@@ -459,9 +462,13 @@
     </section>
   </main>
   <footer>
-    <div class="page-nav hexagon bg-1">
-      <div class="nav-arrows">
+    <div class="hex-container about-hex">
+      <input type="checkbox" class="toggle" />
+      <span class="close-btn fas fa-times-circle fa-3x"></span>
+      <div class="hexagon about">
         <span class="fas fa-question fa-2x"></span>
+        <p>Well hello there! Welcome to the Hex Portal!  You may be asking yourself just what this site is, hm?  In truth, in its current state, it is simply a concept page.  The idea came from the want of a new way of interacting with my website bookmarks.  You see, I've accumulated a large number over the years, but I rarely actually look into my bookmarks file and often completely forget what I've saved!  This site is my attempt at interacting with my saved links in a fresh way.  I hope to expand the site to include other links, feeds, and media and then turn it into a customizable portal creator so that visitors can have their own personal Hex Portal!<br>
+        Feel free to have a look at what I'm up to at <a href="http://coryschmidt.info" target="_blank">coryschmidt.info</a> and if you have any feedback let me know!</p>
       </div>
     </div>
   </footer>
