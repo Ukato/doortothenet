@@ -315,8 +315,9 @@ p {
   }
   100% {
     margin-top: 2rem;
-    height: calc(var(--hex-height) * 2);
+    height: calc(var(--hex-height) * 2.5);
     opacity: 1;
+    overflow: scroll;
   }
 }
 
